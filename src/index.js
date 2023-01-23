@@ -1,14 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { Provider } from 'react-redux';
+
+import { createStore, applyMiddleware } from 'redux';
+
 import App from './App';
+import { reducer } from './features/todos';
+import { asyncMiddleware } from './middlewares/async';
+
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const store = createStore(reducer, applyMiddleware(asyncMiddleware));
+
 root.render(
-	<React.StrictMode>
+	<Provider store={store}>
 		<App />
-	</React.StrictMode>
+	</Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
